@@ -45,7 +45,7 @@ export const TempetureAndInfo = ({weather}) => {
           )}
           <div className="flex justify-center ml-4 items-center">
             <span className=" md:text-xl text-lg lg:text-3xl text-white">
-              {clicked ? temp_f : temp_c}&deg;
+              {clicked ? temp_f.toFixed() : temp_c.toFixed()}&deg;
             </span>
             <div className="flex md:text-lg text-base lg:text-xl gap-2 justify-center items-center ml-8 ">
               <span
@@ -96,13 +96,13 @@ export const TempetureAndInfo = ({weather}) => {
           <div className="flex items-center gap-2 ">
             <UilArrowUp />
             <span className="md:text-lg text-sm">
-              High: {clicked ? maxtemp_f : maxtemp_c}&deg;
+              High: {clicked ? maxtemp_f.toFixed() : maxtemp_c.toFixed()}&deg;
             </span>
           </div>
           <div className="flex items-center">
             <UilArrowDown />
             <span className="md:text-lg text-sm">
-              Low: {clicked ? mintemp_f : mintemp_c}&deg;
+              Low: {clicked ? mintemp_f.toFixed() : mintemp_c.toFixed()}&deg;
             </span>
           </div>
         </div>
@@ -135,7 +135,7 @@ export const TempetureAndInfo = ({weather}) => {
                       <UilMoon size={20} className="text-MainColor my-2" />
                     )}
                     <span className="text-sm">
-                      {clicked ? temp_f : temp_c}&deg;
+                      {clicked ? temp_f.toFixed() : temp_c.toFixed()}&deg;
                     </span>
                     <span className="text-xs">{text}</span>
                   </div>
@@ -182,7 +182,7 @@ export const TempetureAndInfo = ({weather}) => {
                     )}
 
                     <span className="text-sm">
-                      {clicked ? maxtemp_f : maxtemp_c}
+                      {clicked ? maxtemp_f.toFixed() : maxtemp_c.toFixed()}
                     </span>
                     <span className="text-xs">{text}</span>
                   </div>
