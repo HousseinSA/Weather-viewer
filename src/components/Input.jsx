@@ -4,14 +4,15 @@ import {AppContext} from "../context/AppContext"
 import {useState} from "react"
 export const Input = () => {
   const [showX, setShowX] = useState("")
-  const {handelSubmit} = AppContext()
+  const {handelSubmit, handelUserLocation} = AppContext()
   const removeText = () => {
     if (showX) {
       setShowX("")
     }
   }
+
   return (
-    <div className="flex justify-center gap-4 items-center my-1 ">
+    <div className="fleIx justify-center gap-4 items-center my-1 ">
       <form onSubmit={handelSubmit} className="flex gap-2">
         <div className="relative">
           <input
@@ -35,12 +36,13 @@ export const Input = () => {
             className="cursor-pointer transition active:scale-100 hover:scale-125"
           />
         </button>
+        <UilLocationPoint
+          color={"white"}
+          size={20}
+          onClick={handelUserLocation}
+          className="cursor-pointer transition hover:scale-125"
+        />
       </form>
-      <UilLocationPoint
-        color={"white"}
-        size={20}
-        className="cursor-pointer transition hover:scale-125"
-      />
     </div>
   )
 }

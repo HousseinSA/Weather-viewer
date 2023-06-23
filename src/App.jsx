@@ -8,6 +8,7 @@ import {AppContext} from "./context/AppContext"
 export const App = () => {
   const [weather, setWeather] = useState()
   const {city} = AppContext()
+  console.log(city)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
   useEffect(() => {
@@ -45,7 +46,7 @@ export const App = () => {
   return (
     <div
       className={`md:max-w-screen-xl mx-auto min-h-screen rounded shadow-xl md:my-4 transition  ${backgroundWeather}`}>
-      <div className="w-full max-h-full">
+      <div className="w-full max-h-screen">
         <div className="flex flex-col items-center">
           <TopButtons />
           <Input />

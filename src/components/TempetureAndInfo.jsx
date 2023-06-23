@@ -13,7 +13,8 @@ export const TempetureAndInfo = ({weather}) => {
   const [clicked, setClicked] = useState(false)
   const {
     text,
-    pressure_in,
+    feelslike_c,
+    feelslike_f,
     wind_mph,
     sunrise,
     sunset,
@@ -67,7 +68,7 @@ export const TempetureAndInfo = ({weather}) => {
           <div className="text-white flex flex-col gap-2">
             <div className=" flex gap-1 items-center">
               <UilTemperatureHalf />
-              <p className="text-sm md:text-base">Pressure: {pressure_in}%</p>
+              <p className="text-sm md:text-base">feels like: {clicked?feelslike_f:feelslike_c}&deg;</p>
             </div>
             <div className="flex gap-1 items-center">
               <UilTear />
