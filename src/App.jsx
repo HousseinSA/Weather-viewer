@@ -12,7 +12,7 @@ export const App = () => {
   const [error, setError] = useState(false)
   useEffect(() => {
     try {
-      setLoading(true)
+       setLoading(true)
       const weatherData = async () => {
         const data = await getFormattedWeather(city)
         setWeather(data)
