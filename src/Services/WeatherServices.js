@@ -73,7 +73,6 @@ const getFormattedWeather = async (typeInfo) => {
   const formattedCurrentWeather = await getWeatherData(typeInfo).then(
     getCurrentWeather
   )
-  console.log(formattedCurrentWeather)
   return formattedCurrentWeather
 }
 export default getFormattedWeather

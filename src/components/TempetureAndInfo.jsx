@@ -31,7 +31,6 @@ export const TempetureAndInfo = ({weather}) => {
     tz_id,
     wind_kph,
   } = weather
-  console.log(temp_c, temp_f)
   return (
     <div className="w-3/4 mx-auto">
       <div className="flex flex-col gap-2 justify-center items-center">

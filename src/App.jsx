@@ -8,7 +8,6 @@ import {AppContext} from "./context/AppContext"
 export const App = () => {
   const [weather, setWeather] = useState()
   const {city} = AppContext()
-  console.log(city)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
   useEffect(() => {
@@ -42,7 +41,6 @@ export const App = () => {
   } else if (tempC <= 9 || tempF <= 48.2) {
     backgroundWeather = "bg-gradient-to-br  from-cyan-300 to-sky-200 "
   }
-  console.log(backgroundWeather)
   return (
     <div
       className={`md:max-w-screen-xl mx-auto min-h-screen rounded shadow-xl md:my-4 transition  ${backgroundWeather}`}>
