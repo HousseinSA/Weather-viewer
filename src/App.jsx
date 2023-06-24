@@ -7,19 +7,18 @@ import {TopButtons} from "./components/TopButtons"
 import {AppContext} from "./context/AppContext"
 import {ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-
 export const App = () => {
   const [weather, setWeather] = useState()
-  const {city} = AppContext()
+  const {city,currentLocation} = AppContext()
   useEffect(() => {
-    const location = city ? city : "Current location"
+    const location = city?city:"Current location"
     try {
-        toast.info(`loading ${location} weather`, {
-          position: "top-right",
-          autoClose: 1000,
-        })
+      toast.info(`loading ${location} weather`, {
+        position: "top-right",
+        autoClose: 1000,
+      })
       const weatherData = async () => {
-        const data = await getFormattedWeather(city)
+        const data = await getFormattedWeather(city?city:currentLocation)
         setWeather(data)
       }
       weatherData()
@@ -29,13 +28,13 @@ export const App = () => {
         autoClose: 2000,
       })
     } finally {
-        toast.success(` ${location} weather`, {
-          position: "top-right",
-          autoClose: 2000,
-        })
+      toast.success(`${location} weather`, {
+        position: "top-right",
+        autoClose: 2000,
+      })
     }
-  }, [city])
-
+  }, [city, currentLocation])
+  console.log(city)
   let tempC
   let tempF
   if (weather) {
@@ -55,7 +54,7 @@ export const App = () => {
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer toastClassName="mobile-toast " />
       <div
         className={`md:max-w-screen-xl mx-auto min-h-screen rounded shadow-xl md:my-4 transition duration-500 ease-in-out ${backgroundWeather} sm:p-4 overflow-y-auto`}>
         <div className="w-full max-h-screen">
