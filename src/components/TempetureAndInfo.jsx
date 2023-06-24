@@ -34,16 +34,22 @@ export const TempetureAndInfo = ({weather}) => {
   return (
     <div className="w-3/4 mx-auto">
       <div className="flex flex-col gap-2 justify-center items-center">
-        <div className=" text-lg md:text-xl lg:text-2xl mr-12 text-MainColor capitalize">
+        <div className=" text-lg md:text-xl lg:text-2xl text-MainColor capitalize">
           {text}
         </div>
-        <div className="flex w-full items-center mx-auto justify-evenly gap-5">
-          {icon !== "//cdn.weatherapi.com/weather/64x64/night/113.png" ? (
-            <img src={`http://${icon}`} className="w-30" alt="Weather Icon" />
-          ) : (
-            <UilMoon size={30} className="text-MainColor" />
-          )}
-          <div className="flex justify-center ml-4 items-center">
+        <div className="flex w-full items-center justify-center gap-2">
+          <div className="flex-1 flex justify-center">
+            {icon !== "//cdn.weatherapi.com/weather/64x64/night/113.png" ? (
+              <img
+                src={`http://${icon}`}
+                className="w-30 "
+                alt="Weather Icon"
+              />
+            ) : (
+              <UilMoon size={30} className="text-MainColor flex-1" />
+            )}
+          </div>
+          <div className="flex-1 flex justify-center">
             <span className=" md:text-xl text-lg lg:text-3xl text-white">
               {clicked ? temp_f.toFixed() : temp_c.toFixed()}&deg;
             </span>
@@ -64,23 +70,30 @@ export const TempetureAndInfo = ({weather}) => {
               </span>
             </div>
           </div>
-          <div className="text-white flex flex-col gap-2">
-            <div className=" flex gap-1 items-center">
-              <UilTemperatureHalf />
-              <p className="text-sm md:text-base">feels like: {clicked?feelslike_f:feelslike_c}&deg;</p>
-            </div>
-            <div className="flex gap-1 items-center">
-              <UilTear />
-              <p className="text-sm md:text-base">Humidity: {humidity}%</p>
-            </div>
-            <div className="flex gap-1  items-center">
-              <UilWind />
-              <p className="text-sm md:text-base">
-                wind:{" "}
-                {`${
-                  clicked ? wind_mph + " " + "Mp/h" : wind_kph + " " + "Km/h" //eslint-disable-line
-                }`}
-              </p>
+          <div className="flex-1">
+            <div className=" text-white flex flex-col gap-2">
+              <div className=" flex gap-1 items-center">
+                <UilTemperatureHalf />
+                <p className="text-sm md:text-base">
+                  feels like:{" "}
+                  {clicked ? feelslike_f.toFixed() : feelslike_c.toFixed()}&deg;
+                </p>
+              </div>
+              <div className="flex gap-1 items-center">
+                <UilTear />
+                <p className="text-sm md:text-base">Humidity: {humidity}%</p>
+              </div>
+              <div className="flex gap-1  items-center">
+                <UilWind />
+                <p className="text-sm md:text-base">
+                  wind:{" "}
+                  {`${
+                    clicked
+                      ? wind_mph.toFixed() + " " + "Mp/h" //eslint-disable-line
+                      : wind_kph.toFixed() + " " + "Km/h" //eslint-disable-line
+                  }`}
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -116,7 +129,7 @@ export const TempetureAndInfo = ({weather}) => {
           {hourlyForecast &&
             hourlyForecast
               .slice(0, 5)
-              .map(({temp_c, temp_f, time_epoch, condition: {text, icon}}) => {
+              .map(({temp_c, temp_f, time_epoch, condition: {text, icon}},index) => {
                 const date = new Date(time_epoch * 1000) // Convert the timestamp to milliseconds by multiplying it by 1000
                 const StringDate = date.toLocaleString("en-US", {
                   hour: "numeric",
@@ -124,7 +137,7 @@ export const TempetureAndInfo = ({weather}) => {
                   timeZone: tz_id,
                 })
                 return (
-                  <div className="flex flex-col justify-evenly  items-center text-white">
+                  <div key={index} className="flex flex-col justify-evenly  items-center text-white">
                     <span className="text-sm">{StringDate}</span>
                     {icon !==
                     "//cdn.weatherapi.com/weather/64x64/night/113.png" ? (
@@ -157,6 +170,8 @@ export const TempetureAndInfo = ({weather}) => {
                   day: {
                     maxtemp_c,
                     maxtemp_f,
+                    mintemp_c,
+                    mintemp_f,
                     condition: {text, icon},
                   },
                 },
@@ -180,10 +195,17 @@ export const TempetureAndInfo = ({weather}) => {
                     ) : (
                       <UilMoon size={30} className="text-MainColor" />
                     )}
+                    <div className="flex gap-2">
+                      <span className="text-sm">
+                        {clicked ? maxtemp_f.toFixed() : maxtemp_c.toFixed()}
+                        &deg;
+                      </span>
+                      <span className="text-sm text-gray-500">
+                        {clicked ? mintemp_f.toFixed() : mintemp_c.toFixed()}
+                        &deg;
+                      </span>
+                    </div>
 
-                    <span className="text-sm">
-                      {clicked ? maxtemp_f.toFixed() : maxtemp_c.toFixed()}
-                    </span>
                     <span className="text-xs">{text}</span>
                   </div>
                 )

@@ -10,10 +10,11 @@ export const Input = () => {
       setShowX("")
     }
   }
-
   return (
-    <div className="fleIx justify-center gap-4 items-center my-1 ">
-      <form onSubmit={handelSubmit} className="flex gap-2">
+    <div className="flex justify-center gap-4 items-center">
+      <form
+        onSubmit={handelSubmit}
+        className="flex gap-2 items-center justify-center">
         <div className="relative">
           <input
             type="text"
@@ -40,7 +41,7 @@ export const Input = () => {
           color={"white"}
           size={20}
           onClick={handelUserLocation}
-          className="cursor-pointer transition hover:scale-125"
+          className="cursor-pointer transition active:scale-100 hover:scale-125"
         />
       </form>
     </div>

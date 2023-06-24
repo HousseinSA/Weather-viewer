@@ -5,7 +5,6 @@ export const MyContextProvider = ({children}) => {
   const handelSubmit = (e) => {
     e.preventDefault()
     setCity(e.target.city.value)
-    e.target.rest()
   }
 
   const handelUserLocation = () => {
@@ -21,7 +20,12 @@ export const MyContextProvider = ({children}) => {
   useEffect(() => {
     handelUserLocation()
   }, [])
-  const value = {city, setCity, handelSubmit, handelUserLocation}
+  const value = {
+    city,
+    setCity,
+    handelSubmit,
+    handelUserLocation,
+  }
   return <MyContext.Provider value={value}>{children}</MyContext.Provider>
 }
 export const AppContext = () => {
