@@ -5,36 +5,31 @@ import {TempetureAndInfo} from "./components/TempetureAndInfo"
 import {TimeAndLocation} from "./components/TimeAndLocation"
 import {TopButtons} from "./components/TopButtons"
 import {AppContext} from "./context/AppContext"
-import {ToastContainer, toast} from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
+import ClipLoader from "react-spinners/ClipLoader"
 export const App = () => {
   const [weather, setWeather] = useState()
-  const {city,currentLocation} = AppContext()
+  const {city} = AppContext()
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState()
   useEffect(() => {
-    const location = city?city:"Current location"
-    try {
-      toast.info(`loading ${location} weather`, {
-        position: "top-right",
-        autoClose: 1000,
-      })
-      const weatherData = async () => {
-        const data = await getFormattedWeather(city?city:currentLocation)
-        setWeather(data)
+    const weatherData = async () => {
+      try {
+        setLoading(true)
+        if (city) {
+          const data = await getFormattedWeather(city)
+          if (data) {
+            setLoading(false)
+            setWeather(data)
+          }
+        }
+      } catch (error) {
+        setLoading(false)
+        setError(error.message)
       }
-      weatherData()
-    } catch (error) {
-      toast.error(`error fetching ${location} weather`, {
-        position: "top-right",
-        autoClose: 2000,
-      })
-    } finally {
-      toast.success(`${location} weather`, {
-        position: "top-right",
-        autoClose: 2000,
-      })
     }
-  }, [city, currentLocation])
-  console.log(city)
+    weatherData()
+  }, [city])
+
   let tempC
   let tempF
   if (weather) {
@@ -53,29 +48,37 @@ export const App = () => {
   }
 
   return (
-    <>
-      <ToastContainer toastClassName="mobile-toast " />
-      <div
-        className={`md:max-w-screen-xl mx-auto min-h-screen rounded shadow-xl md:my-4 transition duration-500 ease-in-out ${backgroundWeather} sm:p-4 overflow-y-auto`}>
-        <div className="w-full max-h-screen">
-          <div className=" flex-row lg:flex justify-center items-center">
-            <TopButtons />
-            <Input />
-          </div>
-          {weather && (
-            <>
-              <TimeAndLocation
-                time={weather.localtime_epoch}
-                timeZone={weather.tz_id}
-                cityInfo={weather}
-                className="sm:w-1/2"
-              />
-              <TempetureAndInfo weather={weather} className="sm:w-1/2" />
-            </>
-          )}
+    <div
+      className={`md:max-w-screen-xl mx-auto min-h-screen rounded shadow-xl md:my-4 transition duration-500 ease-in-out ${backgroundWeather} sm:p-4 overflow-y-auto`}>
+      <div className="w-full max-h-screen">
+        <div className=" flex-row lg:flex lg:justify-center items-center">
+          <TopButtons />
+          <Input />
         </div>
-        <div className="flex justify-center items-center sm:mt-4"></div>
+        {loading && (
+          <div className="flex animation justify-center items-center">
+            <ClipLoader color="skyblue" />
+            <span className="text-sm text-MainColor ml-3">Loading...</span>
+          </div>
+        )}
+        {error && (
+          <div className="flex animation text-center text-red-100 text-semibold justify-center items-center">
+            {error}
+          </div>
+        )}
+        {weather && !loading && !error && (
+          <>
+            <TimeAndLocation
+              time={weather.localtime_epoch}
+              timeZone={weather.tz_id}
+              cityInfo={weather}
+              className="sm:w-1/2"
+            />
+            <TempetureAndInfo weather={weather} className="sm:w-1/2" />
+          </>
+        )}
       </div>
-    </>
+      <div className="flex justify-center items-center sm:mt-4"></div>
+    </div>
   )
 }

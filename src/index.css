@@ -21,6 +21,9 @@ body {
 .App {
   max-width: 90vh;
 }
+.animation {
+  height: 80vh;
+}
 
 @media (max-width: 767px) {
   .mobile-toast {

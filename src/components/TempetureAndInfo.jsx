@@ -32,7 +32,7 @@ export const TempetureAndInfo = ({weather}) => {
     wind_kph,
   } = weather
   return (
-    <div className="w-3/4 mx-auto">
+    <div className="p-4 md:w-3/4 mx-auto">
       <div className="flex flex-col gap-2 justify-center items-center">
         <div className=" text-lg md:text-xl lg:text-2xl text-MainColor capitalize">
           {text}
@@ -129,31 +129,38 @@ export const TempetureAndInfo = ({weather}) => {
           {hourlyForecast &&
             hourlyForecast
               .slice(0, 5)
-              .map(({temp_c, temp_f, time_epoch, condition: {text, icon}},index) => {
-                const date = new Date(time_epoch * 1000) // Convert the timestamp to milliseconds by multiplying it by 1000
-                const StringDate = date.toLocaleString("en-US", {
-                  hour: "numeric",
-                  minute: "numeric",
-                  timeZone: tz_id,
-                })
-                return (
-                  <div key={index} className="flex flex-col justify-evenly  items-center text-white">
-                    <span className="text-sm">{StringDate}</span>
-                    {icon !==
-                    "//cdn.weatherapi.com/weather/64x64/night/113.png" ? (
-                      <div className="w-8">
-                        <img src={`http://${icon}`} alt="Weather Icon" />
-                      </div>
-                    ) : (
-                      <UilMoon size={20} className="text-MainColor my-2" />
-                    )}
-                    <span className="text-sm">
-                      {clicked ? temp_f.toFixed() : temp_c.toFixed()}&deg;
-                    </span>
-                    <span className="text-xs">{text}</span>
-                  </div>
-                )
-              })}
+              .map(
+                (
+                  {temp_c, temp_f, time_epoch, condition: {text, icon}},
+                  index
+                ) => {
+                  const date = new Date(time_epoch * 1000) // Convert the timestamp to milliseconds by multiplying it by 1000
+                  const StringDate = date.toLocaleString("en-US", {
+                    hour: "numeric",
+                    minute: "numeric",
+                    timeZone: tz_id,
+                  })
+                  return (
+                    <div
+                      key={index}
+                      className="flex flex-col justify-evenly  items-center text-white">
+                      <span className="text-sm">{StringDate}</span>
+                      {icon !==
+                      "//cdn.weatherapi.com/weather/64x64/night/113.png" ? (
+                        <div className="w-8">
+                          <img src={`http://${icon}`} alt="Weather Icon" />
+                        </div>
+                      ) : (
+                        <UilMoon size={20} className="text-MainColor my-2" />
+                      )}
+                      <span className="text-sm">
+                        {clicked ? temp_f.toFixed() : temp_c.toFixed()}&deg;
+                      </span>
+                      <span className="text-xs">{text}</span>
+                    </div>
+                  )
+                }
+              )}
         </div>
       </div>
       <div className="my-2 pb-4">

@@ -13,10 +13,10 @@ export const TimeAndLocation = ({time, timeZone, cityInfo}) => {
   const {name, region, country} = cityInfo
   return (
     <div className="flex-col flex justify-center items-center">
-      <div className="text-gray-600 md:text-lg text-md lg:text-xl my-2">
+      <div className="text-center text-gray-600 md:text-lg text-md lg:text-xl my-2">
         {dateString}
       </div>
-      <div className=" text-white lg:text-2xl md:text-xl text-lg text-bold mb-3 capitalize ">
+      <div className=" text-white  text-center lg:text-2xl md:text-xl text-lg text-bold mb-3 capitalize ">
         {`${name}, ${region}  ${country}`}
       </div>
     </div>
